@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
-from keras.utils import load_img
+from PIL import Image
 
 
 class CovidDatasetLoader:
@@ -31,7 +31,8 @@ class CovidDatasetLoader:
 
 
 def load_covid_dataset():
-    base_path = "/Users/hrustik/Desktop/image-classification/COVID-19_RXRayClassifier/COVID-19_Radiography_Dataset"
+    # Use relative path for better portability
+    base_path = "COVID-19_Radiography_Dataset"
     loader = CovidDatasetLoader(base_path)
     loader.load_data()
     df = loader.get_dataframe()
@@ -55,7 +56,8 @@ def display_samples(df, classes, samples_per_class=3):
         )
 
         for j, (_, row) in enumerate(class_samples.iterrows()):
-            img = load_img(row["image_path"], target_size=(224, 224))
+            # Use PIL instead of Keras to load and resize images
+            img = Image.open(row["image_path"]).resize((224, 224))
             plt.subplot(len(classes), samples_per_class, i * samples_per_class + j + 1)
             plt.imshow(img, cmap="gray")
             plt.title(f"{class_name}")
