@@ -3,3 +3,35 @@
 *.jpeg
 *.jpg
 *.xlsx
+# Dataset
+COVID-19_Radiography_Dataset/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Models and Weights
+*.pth
+*.h5
+*.onnx
+
+# Data files
+*.png
+*.jpeg
+*.jpg
+*.xlsx
+*.csv

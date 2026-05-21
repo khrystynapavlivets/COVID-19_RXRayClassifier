@@ -1,10 +1,9 @@
-# %%
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from keras.utils import load_img
 
-# %%
+
 class CovidDatasetLoader:
     def __init__(self, base_path):
         self.base_path = base_path
@@ -45,7 +44,6 @@ if __name__ == "__main__":
     print(df.groupby("label").count())
 
 
-# %%
 # Function to display sample images
 def display_samples(df, classes, samples_per_class=3):
     plt.figure(figsize=(15, 10))
@@ -65,6 +63,3 @@ def display_samples(df, classes, samples_per_class=3):
 
     plt.tight_layout()
     plt.show()
-
-
-# %%
