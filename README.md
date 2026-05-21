@@ -1,7 +1,6 @@
-## 👨‍💻 Author
-**Khrystyna Pavlivets** - [GitHub Profile](https://github.com/khrystynapavlivets)# COVID-19 Radiography Classifier 🩺 ⚡️
+# COVID-19 Radiography Classifier 🩺 ⚡️
 
-This project leverages Deep Learning using PyTorch to classify chest X-ray images into four categories: COVID-19, Lung Opacity, Normal, and Viral Pneumonia.
+This project leverages Deep Learning to classify chest X-ray images into four categories: COVID-19, Lung Opacity, Normal, and Viral Pneumonia.
 
 ---
 
@@ -19,12 +18,22 @@ The project utilizes the widely recognized **COVID-19 Radiography Database**, wh
 ## 🛠 Tech Stack
 
 - **Python 3.13+**
-- **PyTorch** (Deep Learning framework)
-- **Torchvision** (Image processing)
-- **Scikit-learn** (Data preprocessing & metrics)
-- **Pandas** (Data analysis)
+- **PyTorch** (Core Deep Learning framework)
+- **Keras/TensorFlow** (Data loading utilities)
+- **Torchvision** (Image transformations)
+- **Scikit-learn** (Preprocessing & metrics)
+- **Pandas** (Data handling)
 - **Matplotlib** (Visualization)
-- **uv** (Package & environment management)
+- **uv** (Environment & dependency management)
+
+---
+
+## 📂 Project Structure
+
+- `train.py`: Main script for model training and evaluation.
+- `DataPred.py`: Data loading and preprocessing utilities.
+- `main.py`: Entry point placeholder.
+- `COVID-19_Radiography_Dataset/`: Dataset directory (to be added manually).
 
 ---
 
