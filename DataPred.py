@@ -1,7 +1,10 @@
+# %%
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
+
+# %%
 
 
 class CovidDatasetLoader:
@@ -45,8 +48,13 @@ if __name__ == "__main__":
     print(df.groupby("label").count())
 
 
+# %%
 # Function to display sample images
 def display_samples(df, classes, samples_per_class=3):
+    if df.empty:
+        print("Error: Dataset is empty. Please check your data path.")
+        return
+
     plt.figure(figsize=(15, 10))
 
     for i, class_name in enumerate(classes):
@@ -65,3 +73,6 @@ def display_samples(df, classes, samples_per_class=3):
 
     plt.tight_layout()
     plt.show()
+
+
+# %%
