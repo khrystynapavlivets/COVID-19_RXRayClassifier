@@ -46,7 +46,6 @@ class_weights = torch.tensor(class_weights, dtype=torch.float).to(device)
 train_transform = transforms.Compose(
     [
         transforms.Resize((224, 224)),
-        transforms.Grayscale(num_output_channels=3),  # ResNet18 expects 3 channels
         transforms.RandomHorizontalFlip(),
         transforms.RandomRotation(10),
         transforms.ToTensor(),
@@ -58,7 +57,6 @@ train_transform = transforms.Compose(
 test_transform = transforms.Compose(
     [
         transforms.Resize((224, 224)),
-        transforms.Grayscale(num_output_channels=3),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ]
@@ -76,7 +74,7 @@ class CovidDataset(Dataset):
 
     def __getitem__(self, idx):
         img_path = self.image_paths[idx]
-        image = Image.open(img_path).convert("L")
+        image = Image.open(img_path).convert("RGB")
 
         if self.transform:
             image = self.transform(image)
@@ -84,13 +82,12 @@ class CovidDataset(Dataset):
         label = self.labels[idx]
         return image, torch.tensor(label, dtype=torch.long), img_path
 
-
 # Initialize Datasets and Loaders
 train_dataset = CovidDataset(X_train, y_train_enc, transform=train_transform)
 test_dataset = CovidDataset(X_test, y_test_enc, transform=test_transform)
 
-train_dataloader = DataLoader(dataset=train_dataset, batch_size=32, shuffle=True)
-test_dataloader = DataLoader(dataset=test_dataset, batch_size=32, shuffle=True)
+train_dataloader = DataLoader(dataset=train_dataset, batch_size=64, shuffle=True)
+test_dataloader = DataLoader(dataset=test_dataset, batch_size=64, shuffle=False)
 
 img, label, img_path = train_dataset[0]
 print(img.shape)
@@ -98,12 +95,11 @@ print(label)
 print(img_path)
 
 
-
 # %% Model Architecture
 CLASSES = ["COVID", "Lung_Opacity", "Normal", "Viral_Pneumonia"]
 NUM_CLASSES = len(CLASSES)
 
-# Model architecture using Transfer Learning (Pre-trained ResNet18)
+# Model architecture using Transfer Learning
 class CovidResNet(nn.Module):
     def __init__(self, num_classes):
         super(CovidResNet, self).__init__()
@@ -120,10 +116,10 @@ class CovidResNet(nn.Module):
     def forward(self, x):
         return self.resnet(x)
 
+
 # Initialize model and move to device
 model = CovidResNet(NUM_CLASSES)
 model.to(device)
-
 
 
 # %% Training Setup and Loop
@@ -183,7 +179,6 @@ for epoch in range(NUM_EPOCHS):
     scheduler.step(avg_loss)
 
 
-
 # %% Evaluation and Metrics
 # Evaluate the model on the test set
 model.to(device)
@@ -238,3 +233,5 @@ for i in random.sample(range(len(test_dataset)), 5):
     plt.title(f"True: {CLASSES[label]}, Pred: {CLASSES[pred_label]}")
     plt.axis("off")
     plt.show()
+
+# %%

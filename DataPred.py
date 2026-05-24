@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 # %%
-
-
 class CovidDatasetLoader:
     def __init__(self, base_path):
         self.base_path = base_path
@@ -23,7 +21,7 @@ class CovidDatasetLoader:
                 img_path = os.path.join(class_path, img_name)
                 self.data["image_path"].append(img_path)
                 self.data["label"].append(class_name)
-
+            
     def get_dataframe(self):
         return pd.DataFrame(self.data)
 
@@ -34,7 +32,6 @@ class CovidDatasetLoader:
 
 
 def load_covid_dataset():
-    # Use relative path for better portability
     base_path = "COVID-19_Radiography_Dataset"
     loader = CovidDatasetLoader(base_path)
     loader.load_data()
@@ -74,5 +71,3 @@ def display_samples(df, classes, samples_per_class=3):
     plt.tight_layout()
     plt.show()
 
-
-# %%
